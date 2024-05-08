@@ -32,8 +32,15 @@ def get_card_links():
         for card in cards[:-5]:
             card_links.append(f'{URL}{card.get('href')}')
 
+def get_product_data():
+    for card in card_links[:1]:
+        soup = req(card)
+        
+        product_name = soup.find('h1', class_ = 'page-title').text
+        product_code = str(soup.find('div', class_ = 'item__content_tags_code').find('span').next_sibling).strip()
+
 
 if __name__ == '__main__':
     get_categories_links()
     get_card_links()
-    print(card_links)
+    get_product_data()
